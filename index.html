@@ -60,6 +60,7 @@
             let playerScore = 0;
             let computerScore = 0;
             for (i = 0; i < 5; i++) {
+                
                 let playerSelection = prompt("Rock, paper, or scissors?", "Your selection.");
                 playerSelection = playerSelection.toLowerCase();
                 let computerSelection = computerPlay();
@@ -76,6 +77,9 @@
             }
             else if (computerScore > playerScore) {
                 console.log("You lost the game, " + computerScore + " to " + playerScore + ".")
+            }
+            else {
+                console.log("The game was a tie.");
             }
         }
         game();
