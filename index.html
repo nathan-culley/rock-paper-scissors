@@ -7,9 +7,93 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
+    <!--displays the buttons for the user to push-->
+    <div id="buttons">
+        <button id="rockButton">Rock</button>
+        <button id="paperButton">Paper</button>
+        <button id="scissorsButton">Scissors</button>
+    </div>
+    <!--displays the results of each round and the game as a whole-->
+    <div id="results">
+        <div id="rounds">
+            <ol id="roundList">
+
+            </ol>
+        </div>
+        <div id="game">
+
+        </div>
+    </div>
+    
     <script>
-        console.log("Let's play Rock Paper Scissors!");
-        //Your game is going to play against the computer, so begin with a function called computerPlay that will randomly return either ‘Rock’, ‘Paper’ or ‘Scissors’. We’ll use this function in the game to make the computer’s play. Tip: use the console to make sure this is returning the expected output before moving to the next step!
+        //sets both scores at 0 to start
+        let playerScore = 0;
+        let computerScore = 0;
+        
+        //links HTML buttons to script and adds an event listener that starts a round (startRound()).
+        //startRound takes the player's choice, the player's score, and the computer's score as parameters.
+        //the result of startRound is assigned to roundResult; console.log(roundResult) shows the process up to here occurs correctly.
+        //problems occur when 
+        const rockButton = document.getElementById('rockButton');
+        const paperButton = document.getElementById('paperButton');
+        const scissorsButton = document.getElementById('scissorsButton');
+
+        rockButton.addEventListener('click', function(event) {
+            let roundResult = startRound('rock', playerScore, computerScore);
+            console.log(roundResult);
+            if (roundResult == 'playerWin') {
+                playerScore = addScore(playerScore)
+            }
+            if (roundResult == 'computerWin') {
+                computerScore = addScore(computerScore);
+            console.log(playerScore,computerScore);
+            }
+        });
+        paperButton.addEventListener('click', function(event) {
+            let roundResult = startRound('paper', playerScore, computerScore);
+            console.log(roundResult);
+            if (roundResult == 'playerWin') {
+                playerScore = addScore(playerScore)
+            }
+            if (roundResult == 'computerWin') {
+                computerScore = addScore(computerScore);
+            }
+            console.log(playerScore,computerScore);
+        });
+        scissorsButton.addEventListener('click', function(event) {
+            let roundResult = startRound('scissors', playerScore, computerScore);
+            console.log(roundResult);
+            if (roundResult == 'playerWin') {
+                playerScore = addScore(playerScore)
+            }
+            if (roundResult == 'computerWin') {
+                computerScore = addScore(computerScore);
+            }
+            console.log(playerScore,computerScore);
+        });
+
+
+
+        //startRound() first checks if the victory conditions have been met, and halts the game if they have.
+        //startRound() then makes the computer select its move.
+        //startRound() then calls playRound() with playerSelection and computerSelection and assigns the result to roundWinner.
+        //roundWinner is returned to roundResult in the event listener above.
+        //the victory condition is checked again at the end; this will eventually cause the final results to be displayed.
+        function startRound(playerSelection, playerScore, computerScore) {
+            if (checkVictory(playerScore, computerScore)) {
+                alert('Game Over');
+            }
+            
+            computerSelection = computerPlay();
+            let roundWinner = playRound(playerSelection, computerSelection, playerScore, computerScore);
+            //console.log(roundResult);
+            return roundWinner;
+        }
+
+        if (checkVictory(playerScore, computerScore)) {
+
+        }
+
         function computerPlay() {
             let moveNum = Math.floor(Math.random()*3);
             if (moveNum == 0) {
@@ -22,67 +106,97 @@
                 return "scissors";
             }
         }
-        //let computerSelection = computerPlay();
-        //Write a function that plays a single round of Rock Paper Scissors. The function should take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock" (Make your function’s playerSelection parameter case-insensitive (so users can input rock, ROCK, RocK or any other variation)
-        //Important note: you want to return the results of this function call, not console.log() them. You’re going to use what you return later on, so let’s test this function by using console.log to see the results:
-        function playRound(playerSelection, computerSelection) {
-            if (playerSelection == computerSelection) {
-                console.log("Tie!")
-                return "tie";
+        
+        //this function appears to work correctly.
+        //the game will not proceed if you manually set either score to 5 or higher.
+        function checkVictory(playerScore, computerScore) {
+            if (playerScore >= 5 | computerScore >= 5) {
+                return true;
             }
-            else if (playerSelection == "rock" && computerSelection == "paper") {
-                console.log("You lose! Paper beats rock.");
+        }
+        
+        //this function compares playerSelection and computerSelection and determines the winner.
+        //playRound appears to work correctly, based on the console.log() results here and the console.log() results from above in startRound() and the event listeners for the buttons.
+        function playRound(playerSelection, computerSelection, playerScore, computerScore) {
+            if (playerSelection == "rock" && computerSelection == "paper") {
+                //console.log('rockpaper');
+                displayRound(playerSelection, computerSelection, 'computerWin', playerScore, computerScore);
                 return "computerWin";
             }
             else if (playerSelection == "rock" && computerSelection == "scissors") {
-                console.log("You win! Rock beats scissors.");
+                //console.log('rockscissors');
+                displayRound(playerSelection, computerSelection, 'playerWin', playerScore, computerScore);
                 return "playerWin";
             }
             else if (playerSelection == "paper" && computerSelection == "rock") {
-                console.log("You win! Paper beats rock.");
+                //console.log('paperrock');
+                displayRound(playerSelection, computerSelection, 'playerWin', playerScore, computerScore);
                 return "playerWin";
             }
             else if (playerSelection == "paper" && computerSelection == "scissors") {
-                console.log("You lose! Scissors beats paper.");
+                //console.log('paperscissors');
+                displayRound(playerSelection, computerSelection, 'computerWin', playerScore, computerScore);
                 return "computerWin";
             }
             else if (playerSelection == "scissors" && computerSelection == "rock") {
-                console.log("You lose! Rock beats scissors.");
+                //console.log('scissorsrock');
+                displayRound(playerSelection, computerSelection, 'computerWin', playerScore, computerScore);
                 return "computerWin";
             }
-            else {
-                console.log("You win! Rock beats paper");
+            else if (playerSelection == "scissors" && computerSelection == "paper") {
+                //console.log('scissorspaper');
+                displayRound(playerSelection, computerSelection, 'playerWin', playerScore, computerScore);
                 return "playerWin";
             }
+            else {
+                //console.log('tie');
+                displayRound(playerSelection, computerSelection, 'tie', playerScore, computerScore);
+                return "tie";
+            }
         }
-        //Write a NEW function called game(). Call the playRound function inside of this one to play a 5 round game that keeps score and reports a winner or loser at the end.
-        function game() {
-            let playerScore = 0;
-            let computerScore = 0;
-            for (i = 0; i < 5; i++) {
-                
-                let playerSelection = prompt("Rock, paper, or scissors?", "Your selection.");
-                playerSelection = playerSelection.toLowerCase();
-                let computerSelection = computerPlay();
-                let roundResult = playRound(playerSelection,computerSelection);
-                if (roundResult == "playerWin") {
-                    playerScore++;
-                }
-                else if (roundResult == "computerWin") {
-                    computerScore++;
-                }
+        
+        //this function not yet implemented
+
+        function displayRound(playerMove,computerMove,roundResult, playerScore, computerScore) {
+            let displayWinner;
+            let displayScore;
+            const roundList = document.getElementById('roundList');
+            const li = document.createElement('li');
+            if (roundResult == 'playerWin') {
+                displayWinner = "You won the round!";
             }
-            if (playerScore > computerScore) {
-                console.log("You won the game, " + playerScore + " to " + computerScore + ".")
-            }
-            else if (computerScore > playerScore) {
-                console.log("You lost the game, " + computerScore + " to " + playerScore + ".")
+            if (roundResult == 'computerWin') {
+                displayWinner = "The computer won the round!"
             }
             else {
-                console.log("The game was a tie.");
+                displayWinner = "The round is a tie."
             }
+            if (playerScore > computerScore) {
+                displayScore = "The current score is " + playerScore + " to " + computerScore + ", you lead.";
+            }
+            else if (playerScore < computerScore) {
+                displayScore = "The current score is " + computerScore + " to " + playerScore + ", the computer leads.";
+            }
+            else {
+                displayScore = "The current score is tied at " + playerScore + " to " + computerScore + "."
+            }
+            li.innerText = 'You played ' + playerMove + ' and the computer played ' + computerMove + '. ' + displayWinner + " " + displayScore;
+            roundList.appendChild(li);
         }
-        game();
+        
+        //addScore increments the player's score or the computers score, depending on roundResult.
+        //addScore() is correctly receiving 
+        function addScore(score) {
+            console.log(score);
+            score++;
+            console.log(score);
+            return score;
+        }
     </script>
 </body>
+
+
 </html>
+
+
+
