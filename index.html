@@ -32,16 +32,19 @@
         let playerScore = 0;
         let computerScore = 0;
         
-        //links HTML buttons to script and adds an event listener that starts a round (startRound()).
-        //startRound takes the player's choice, the player's score, and the computer's score as parameters.
-        //the result of startRound is assigned to roundResult; console.log(roundResult) shows the process up to here occurs correctly.
+        //links HTML buttons to script and adds an event listener that executes the basic functions of the game.
+        //Checks the victory condition and terminates the process if the condition is met (checkVictory()).
+        //Initiates the playing of one round, assigning the result to roundResult (startRound()).
+        //Adds one point to the score of the round winner, if there was one (addScore()).
+        //Displays the results of the round, including moves and scores (displayRound()).
+        //Checks the victory condition again; terminates the game and displays the game result if the condition is met (endGame()).
         const rockButton = document.getElementById('rockButton');
         const paperButton = document.getElementById('paperButton');
         const scissorsButton = document.getElementById('scissorsButton');
 
         rockButton.addEventListener('click', function(event) {
             if (checkVictory(playerScore, computerScore)) {
-                alert('Game Over');
+                alert('Game Over. Refresh page to restart.');
                 return;
             }
             let roundResult = startRound('rock', playerScore, computerScore);
@@ -61,7 +64,7 @@
         });
         paperButton.addEventListener('click', function(event) {
             if (checkVictory(playerScore, computerScore)) {
-                alert('Game Over');
+                alert('Game Over. Refresh page to restart.');
                 return;
             }
             let roundResult = startRound('paper', playerScore, computerScore);
@@ -81,7 +84,7 @@
         });
         scissorsButton.addEventListener('click', function(event) {
             if (checkVictory(playerScore, computerScore)) {
-                alert('Game Over');
+                alert('Game Over. Refresh page to restart.');
                 return;
             }
             let roundResult = startRound('scissors', playerScore, computerScore);
@@ -100,22 +103,16 @@
             console.log(checkVictory(),playerScore,computerScore);
         });
 
-
-
-        //startRound() first checks if the victory conditions have been met, and halts the game if they have.
-        //startRound() then makes the computer select its move.
-        //startRound() then calls playRound() with playerSelection and computerSelection and assigns the result to roundWinner.
-        //roundWinner is returned to roundResult in the event listener above.
-        //the victory condition is checked again at the end; this will eventually cause the final results to be displayed.
+        //Determines the computer's move (computerPlay());
+        //Compares the player's move and the computer's move and determines a winner (playRound()).
+        //returns the result to roundWinner, which is returned to the event listener.
         function startRound(playerSelection, playerScore, computerScore) {
             computerSelection = computerPlay();
-            let roundWinner = playRound(playerSelection, computerSelection, playerScore, computerScore);
-            //console.log(roundResult);
+            let roundWinner = playRound(playerSelection, computerSelection);
             return roundWinner;
         }
 
-
-
+        //Randomly selects one of the three possible moves.
         function computerPlay() {
             let moveNum = Math.floor(Math.random()*3);
             if (moveNum == 0) {
@@ -129,56 +126,39 @@
             }
         }
         
-        //this function appears to work correctly.
-        //the game will not proceed if you manually set either score to 5 or higher.
+        //Checks if one player has scored 5 points or more.
         function checkVictory(playerScore, computerScore) {
             if (playerScore >= 5 | computerScore >= 5) {
                 return true;
             }
         }
         
-        //this function compares playerSelection and computerSelection and determines the winner.
-        //playRound appears to work correctly, based on the console.log() results here and the console.log() results from above in startRound() and the event listeners for the buttons.
-
-        function playRound(playerSelection, computerSelection, playerScore, computerScore) {
+        //Compares the player's move and the computer's move and determines the winner, if any.
+        function playRound(playerSelection, computerSelection) {
             if (playerSelection == "rock" && computerSelection == "paper") {
-                //console.log('rockpaper');
-                //displayRound(playerSelection, computerSelection, 'computerWin', playerScore, computerScore);
                 return "computerWin";
             }
             else if (playerSelection == "rock" && computerSelection == "scissors") {
-                //console.log('rockscissors');
-                //displayRound(playerSelection, computerSelection, 'playerWin', playerScore, computerScore);
                 return "playerWin";
             }
             else if (playerSelection == "paper" && computerSelection == "rock") {
-                //console.log('paperrock');
-                //displayRound(playerSelection, computerSelection, 'playerWin', playerScore, computerScore);
                 return "playerWin";
             }
             else if (playerSelection == "paper" && computerSelection == "scissors") {
-                //console.log('paperscissors');
-                //displayRound(playerSelection, computerSelection, 'computerWin', playerScore, computerScore);
                 return "computerWin";
             }
             else if (playerSelection == "scissors" && computerSelection == "rock") {
-                //console.log('scissorsrock');
-                //displayRound(playerSelection, computerSelection, 'computerWin', playerScore, computerScore);
                 return "computerWin";
             }
             else if (playerSelection == "scissors" && computerSelection == "paper") {
-                //console.log('scissorspaper');
-                //displayRound(playerSelection, computerSelection, 'playerWin', playerScore, computerScore);
                 return "playerWin";
             }
             else {
-                //console.log('tie');
-                //displayRound(playerSelection, computerSelection, 'tie', playerScore, computerScore);
                 return "tie";
             }
         }
         
-
+        //Creates a new list item in the element id="roundList" and uses the item to display the moves, the result, and the current score.
         function displayRound(playerMove,roundResult, playerScore, computerScore) {
             let displayWinner;
             let displayScore;
@@ -240,11 +220,13 @@
             roundList.appendChild(li);
         }
 
+        //Adds one point to the winner of the round.
         function addScore(score) {
             score++;
             return score;
         }
         
+        //Displays the final winner and score.
         function endGame(playerScore, computerScore) {
             const gameResult = document.getElementById('gameResult');
             console.log(gameResult, playerScore, computerScore);
