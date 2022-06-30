@@ -9,19 +9,21 @@
 <body>
     <!--displays the buttons for the user to push-->
     <div id="buttons">
+        <h1>Select your move!</h1>
         <button id="rockButton">Rock</button>
         <button id="paperButton">Paper</button>
         <button id="scissorsButton">Scissors</button>
     </div>
     <!--displays the results of each round and the game as a whole-->
     <div id="results">
+        <h3>Results:</h3>
         <div id="rounds">
             <ol id="roundList">
 
             </ol>
         </div>
         <div id="game">
-
+            <h3 id="gameResult"></h5>
         </div>
     </div>
     
@@ -33,12 +35,15 @@
         //links HTML buttons to script and adds an event listener that starts a round (startRound()).
         //startRound takes the player's choice, the player's score, and the computer's score as parameters.
         //the result of startRound is assigned to roundResult; console.log(roundResult) shows the process up to here occurs correctly.
-        //problems occur when 
         const rockButton = document.getElementById('rockButton');
         const paperButton = document.getElementById('paperButton');
         const scissorsButton = document.getElementById('scissorsButton');
 
         rockButton.addEventListener('click', function(event) {
+            if (checkVictory(playerScore, computerScore)) {
+                alert('Game Over');
+                return;
+            }
             let roundResult = startRound('rock', playerScore, computerScore);
             console.log(roundResult);
             if (roundResult == 'playerWin') {
@@ -46,10 +51,19 @@
             }
             if (roundResult == 'computerWin') {
                 computerScore = addScore(computerScore);
-            console.log(playerScore,computerScore);
             }
+            displayRound('rock',roundResult, playerScore, computerScore);
+            if (checkVictory(playerScore, computerScore)) {
+                console.log('Game over!');
+                endGame(playerScore, computerScore);
+            }
+            console.log(checkVictory(),playerScore,computerScore);
         });
         paperButton.addEventListener('click', function(event) {
+            if (checkVictory(playerScore, computerScore)) {
+                alert('Game Over');
+                return;
+            }
             let roundResult = startRound('paper', playerScore, computerScore);
             console.log(roundResult);
             if (roundResult == 'playerWin') {
@@ -58,9 +72,18 @@
             if (roundResult == 'computerWin') {
                 computerScore = addScore(computerScore);
             }
-            console.log(playerScore,computerScore);
+            displayRound('paper',roundResult, playerScore, computerScore);
+            if (checkVictory(playerScore, computerScore)) {
+                console.log('Game over!');
+                endGame(playerScore, computerScore);
+            }
+            console.log(checkVictory(),playerScore,computerScore);
         });
         scissorsButton.addEventListener('click', function(event) {
+            if (checkVictory(playerScore, computerScore)) {
+                alert('Game Over');
+                return;
+            }
             let roundResult = startRound('scissors', playerScore, computerScore);
             console.log(roundResult);
             if (roundResult == 'playerWin') {
@@ -69,7 +92,12 @@
             if (roundResult == 'computerWin') {
                 computerScore = addScore(computerScore);
             }
-            console.log(playerScore,computerScore);
+            displayRound('scissors',roundResult, playerScore, computerScore);
+            if (checkVictory(playerScore, computerScore)) {
+                console.log('Game over!');
+                endGame(playerScore, computerScore);
+            }
+            console.log(checkVictory(),playerScore,computerScore);
         });
 
 
@@ -80,19 +108,13 @@
         //roundWinner is returned to roundResult in the event listener above.
         //the victory condition is checked again at the end; this will eventually cause the final results to be displayed.
         function startRound(playerSelection, playerScore, computerScore) {
-            if (checkVictory(playerScore, computerScore)) {
-                alert('Game Over');
-            }
-            
             computerSelection = computerPlay();
             let roundWinner = playRound(playerSelection, computerSelection, playerScore, computerScore);
             //console.log(roundResult);
             return roundWinner;
         }
 
-        if (checkVictory(playerScore, computerScore)) {
 
-        }
 
         function computerPlay() {
             let moveNum = Math.floor(Math.random()*3);
@@ -117,80 +139,121 @@
         
         //this function compares playerSelection and computerSelection and determines the winner.
         //playRound appears to work correctly, based on the console.log() results here and the console.log() results from above in startRound() and the event listeners for the buttons.
+
         function playRound(playerSelection, computerSelection, playerScore, computerScore) {
             if (playerSelection == "rock" && computerSelection == "paper") {
                 //console.log('rockpaper');
-                displayRound(playerSelection, computerSelection, 'computerWin', playerScore, computerScore);
+                //displayRound(playerSelection, computerSelection, 'computerWin', playerScore, computerScore);
                 return "computerWin";
             }
             else if (playerSelection == "rock" && computerSelection == "scissors") {
                 //console.log('rockscissors');
-                displayRound(playerSelection, computerSelection, 'playerWin', playerScore, computerScore);
+                //displayRound(playerSelection, computerSelection, 'playerWin', playerScore, computerScore);
                 return "playerWin";
             }
             else if (playerSelection == "paper" && computerSelection == "rock") {
                 //console.log('paperrock');
-                displayRound(playerSelection, computerSelection, 'playerWin', playerScore, computerScore);
+                //displayRound(playerSelection, computerSelection, 'playerWin', playerScore, computerScore);
                 return "playerWin";
             }
             else if (playerSelection == "paper" && computerSelection == "scissors") {
                 //console.log('paperscissors');
-                displayRound(playerSelection, computerSelection, 'computerWin', playerScore, computerScore);
+                //displayRound(playerSelection, computerSelection, 'computerWin', playerScore, computerScore);
                 return "computerWin";
             }
             else if (playerSelection == "scissors" && computerSelection == "rock") {
                 //console.log('scissorsrock');
-                displayRound(playerSelection, computerSelection, 'computerWin', playerScore, computerScore);
+                //displayRound(playerSelection, computerSelection, 'computerWin', playerScore, computerScore);
                 return "computerWin";
             }
             else if (playerSelection == "scissors" && computerSelection == "paper") {
                 //console.log('scissorspaper');
-                displayRound(playerSelection, computerSelection, 'playerWin', playerScore, computerScore);
+                //displayRound(playerSelection, computerSelection, 'playerWin', playerScore, computerScore);
                 return "playerWin";
             }
             else {
                 //console.log('tie');
-                displayRound(playerSelection, computerSelection, 'tie', playerScore, computerScore);
+                //displayRound(playerSelection, computerSelection, 'tie', playerScore, computerScore);
                 return "tie";
             }
         }
         
-        //this function not yet implemented
 
-        function displayRound(playerMove,computerMove,roundResult, playerScore, computerScore) {
+        function displayRound(playerMove,roundResult, playerScore, computerScore) {
             let displayWinner;
             let displayScore;
+            let computerMove;
             const roundList = document.getElementById('roundList');
             const li = document.createElement('li');
-            if (roundResult == 'playerWin') {
-                displayWinner = "You won the round!";
+            if (playerMove == 'rock') {
+                if (roundResult == 'playerWin') {
+                    computerMove = 'scissors';
+                    displayWinner = 'You won the round!';
+                }
+                if (roundResult == 'computerWin') {
+                    computerMove = 'paper'
+                    displayWinner = 'The computer won the round!';
+                }
+                if (roundResult == 'tie') {
+                    computerMove = 'rock';
+                    displayWinner = 'The round is a tie.';
+                }
             }
-            if (roundResult == 'computerWin') {
-                displayWinner = "The computer won the round!"
+            else if (playerMove == 'paper') {
+                if (roundResult == 'playerWin') {
+                    computerMove = 'rock';
+                    displayWinner = 'You won the round!';
+                }
+                if (roundResult == 'computerWin') {
+                    computerMove = 'scissors';
+                    displayWinner = 'The computer won the round!';
+                }
+                if (roundResult == 'tie') {
+                    computerMove = 'paper';
+                    displayWinner = 'The round is a tie.';
+                }
             }
-            else {
-                displayWinner = "The round is a tie."
+            if (playerMove == 'scissors') {
+                if (roundResult == 'playerWin') {
+                    computerMove = 'paper';
+                    displayWinner = 'You won the round!';
+                }
+                if (roundResult == 'computerWin') {
+                    computerMove = 'rock';
+                    displayWinner = 'The computer won the round!';
+                }
+                if (roundResult == 'tie') {
+                    computerMove = 'scissors';
+                    displayWinner = 'The round is a tie.';
+                }
             }
             if (playerScore > computerScore) {
-                displayScore = "The current score is " + playerScore + " to " + computerScore + ", you lead.";
+                displayScore = "You're in the lead, " + playerScore + " to " + computerScore + ".";
             }
-            else if (playerScore < computerScore) {
-                displayScore = "The current score is " + computerScore + " to " + playerScore + ", the computer leads.";
+            if (computerScore > playerScore) {
+                displayScore = "The computer is in the lead, " + computerScore + " to " + playerScore + ".";
             }
-            else {
-                displayScore = "The current score is tied at " + playerScore + " to " + computerScore + "."
+            if (playerScore == computerScore) {
+                displayScore = "The game is tied, " + playerScore + " to " + computerScore + ".";
             }
             li.innerText = 'You played ' + playerMove + ' and the computer played ' + computerMove + '. ' + displayWinner + " " + displayScore;
             roundList.appendChild(li);
         }
-        
-        //addScore increments the player's score or the computers score, depending on roundResult.
-        //addScore() is correctly receiving 
+
         function addScore(score) {
-            console.log(score);
             score++;
-            console.log(score);
             return score;
+        }
+        
+        function endGame(playerScore, computerScore) {
+            const gameResult = document.getElementById('gameResult');
+            console.log(gameResult, playerScore, computerScore);
+            if (playerScore > computerScore) {
+                gameResult.textContent = "You won the game, " + playerScore + " to " + computerScore + "!";
+            }
+            if (playerScore < computerScore) {
+                gameResult.textContent = "You lost the game, " + computerScore + " to " + playerScore + "!";
+            }
         }
     </script>
 </body>
