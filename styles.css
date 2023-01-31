@@ -8,6 +8,7 @@
 #prompt {
     border: 1px solid blue;
     width: 300px;
+    text-align: center;
 }
 
 #gameplay {
@@ -25,7 +26,19 @@
     border: 1px solid red;
 }
 
-#results {
+#scores {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#player-score {
     border: 1px solid blue;
-    width: 300px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#computer-score {
+    border: 1px solid red;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
