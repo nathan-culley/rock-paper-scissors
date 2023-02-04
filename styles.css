@@ -16,19 +16,27 @@
     grid-template-columns: 1fr 1fr;
 }
 
-#buttons {
+#player-move {
     border: 1px solid blue;
+}
+
+#buttons {
+    border: 1px solid purple;
     display: flex;
     flex-direction: column;
+}
+
+#buttons button {
+    height: 25px;
 }
 
 #computer-move {
     border: 1px solid red;
 }
 
-#scores {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+#computer-display {
+    border: 1px solid purple;
+    height: 75px;
 }
 
 #player-score {

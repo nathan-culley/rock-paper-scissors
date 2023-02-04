@@ -12,24 +12,28 @@
     <div id="game-area">
         <h1 id="prompt">First to five wins!</h1>
         <div id="gameplay">
-            <div id="buttons">
-                <button id="rockButton">Rock</button>
-                <button id="paperButton">Paper</button>
-                <button id="scissorsButton">Scissors</button>
-            </div>
-            <div id="computer-move">
+            <div id="player-move">
+                <h2>Player</h2>
+                <div id="buttons">
+                    <button id="rockButton">Rock</button>
+                    <button id="paperButton">Paper</button>
+                    <button id="scissorsButton">Scissors</button>
+                </div>
+                <h2 id="player-score">
 
+                </h2>
+            </div>
+            
+            <div id="computer-move">
+                <h2>Computer</h2>
+                <div id="computer-display"></div>
+                <h2 id="computer-score">
+
+                </h2>
             </div>
         </div>
         <!--displays the results of each round and the game as a whole-->
-        <div id="scores">
-            <h2 id="player-score">
 
-            </h2>
-            <h2 id="computer-score">
-
-            </h2>
-        </div>
         <div id="game-status">
             <p id="game-message"></p>
             <button id="reset-game"></button>
