@@ -16,40 +16,58 @@ const paperButton = document.getElementById('paperButton');
 const scissorsButton = document.getElementById('scissorsButton');
 
 rockButton.addEventListener('click', function(event) {
-    if (playRound("rock", computerPlay()) == 'playerWin') {
-        playerScore = addScore(playerScore);
-        console.log(playerScore, computerScore);
-        updateDisplay();
-    }
-    if (playRound("rock", computerPlay()) == 'computerWin') {
-        computerScore = addScore(computerScore);
-        console.log(playerScore, computerScore);
-        updateDisplay();
-    }
+    let playerMove = 'rock';
+    let computerMove = computerPlay();
+    console.log(playerMove, computerMove);
+    playRound(playerMove, computerMove);
+    // if (compare("rock", computerPlay()) == 'playerWin') {
+    //     console.log("rock", computerPlay());
+    //     playerScore = addScore(playerScore);
+    //     console.log(playerScore, computerScore);
+    //     updateDisplay();
+    // }
+    // if (compare("rock", computerPlay()) == 'computerWin') {
+    //     console.log("rock", computerPlay());
+    //     computerScore = addScore(computerScore);
+    //     console.log(playerScore, computerScore);
+    //     updateDisplay();
+    // }
 });
 paperButton.addEventListener('click', function(event) {
-    if (playRound("paper", computerPlay()) == 'playerWin') {
-        playerScore = addScore(playerScore);
-        console.log(playerScore, computerScore);
-        updateDisplay();
-    }
-    if (playRound("paper", computerPlay()) == 'computerWin') {
-        computerScore = addScore(computerScore);
-        console.log(playerScore, computerScore);
-        updateDisplay();
-    }
+    let playerMove = 'paper';
+    let computerMove = computerPlay();
+    console.log(playerMove, computerMove);
+    playRound(playerMove, computerMove);
+    // if (compare("paper", computerPlay()) == 'playerWin') {
+    //     console.log("rock", computerPlay());
+    //     playerScore = addScore(playerScore);
+    //     console.log(playerScore, computerScore);
+    //     updateDisplay();
+    // }
+    // if (compare("paper", computerPlay()) == 'computerWin') {
+    //     console.log("rock", computerPlay());
+    //     computerScore = addScore(computerScore);
+    //     console.log(playerScore, computerScore);
+    //     updateDisplay();
+    // }
 });
 scissorsButton.addEventListener('click', function(event) {
-    if (playRound("scissors", computerPlay()) == 'playerWin') {
-        playerScore = addScore(playerScore);
-        console.log(playerScore, computerScore);
-        updateDisplay()
-    }
-    if (playRound("scissors", computerPlay()) == 'computerWin') {
-        computerScore = addScore(computerScore);
-        console.log(playerScore, computerScore);
-        updateDisplay();
-    }
+    let playerMove = 'scissors';
+    let computerMove = computerPlay();
+    console.log(playerMove, computerMove);
+    playRound(playerMove, computerMove);
+    // if (compare("scissors", computerPlay()) == 'playerWin') {
+    //     console.log("rock", computerPlay());
+    //     playerScore = addScore(playerScore);
+    //     console.log(playerScore, computerScore);
+    //     updateDisplay()
+    // }
+    // if (compare("scissors", computerPlay()) == 'computerWin') {
+    //     console.log("rock", computerPlay());
+    //     computerScore = addScore(computerScore);
+    //     console.log(playerScore, computerScore);
+    //     updateDisplay();
+    // }
 });
 
 
@@ -67,15 +85,37 @@ function computerPlay() {
     }
 }
 
+function playRound(playerMove, computerMove) {
+    let roundResult = compare(playerMove, computerMove);
+    if (roundResult == 'playerWin') {
+        playerScore = addScore(playerScore);
+        updateDisplay();
+    }
+    else if (roundResult == 'computerWin') {
+        computerScore = addScore(computerScore);
+        updateDisplay();
+    }
+    if (checkVictory(playerScore, computerScore) != false) {
+        gameMessage.textContent = checkVictory(playerScore, computerScore) + " wins! Play again?";
+    }
+    
+}
+
 //Checks if one player has scored 5 points or more.
 function checkVictory(playerScore, computerScore) {
-    if (playerScore >= 5 | computerScore >= 5) {
-        return true;
+    if (playerScore >= 5) {
+        return 'Player';
+    }
+    else if (computerScore >= 5) {
+        return 'Computer';
+    }
+    else {
+        return false;
     }
 }
 
 //Compares the player's move and the computer's move and determines the winner, if any.
-function playRound(playerSelection, computerSelection) {
+function compare(playerSelection, computerSelection) {
     if (playerSelection == "rock" && computerSelection == "paper") {
         return "computerWin";
     }
@@ -101,9 +141,7 @@ function playRound(playerSelection, computerSelection) {
 
 //Adds one point to the winner of the round.
 function addScore(score) {
-    console.log(score);
     score++;
-    console.log(score);
     return score;
 }
 
