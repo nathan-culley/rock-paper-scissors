@@ -15,6 +15,14 @@ const rockButton = document.getElementById('rockButton');
 const paperButton = document.getElementById('paperButton');
 const scissorsButton = document.getElementById('scissorsButton');
 
+const resetButton = document.getElementById('resetButton');
+resetButton.addEventListener('click', function(event) {
+    playerScore = 0;
+    computerScore = 0;
+    gameMessage.textContent = "Game on!"
+    updateDisplay();
+})
+
 rockButton.addEventListener('click', function(event) {
     let playerMove = 'rock';
     let computerMove = computerPlay();
