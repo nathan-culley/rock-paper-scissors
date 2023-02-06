@@ -21,6 +21,7 @@ const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener('click', function(event) {
     playerScore = 0;
     computerScore = 0;
+    compMoveDisp.textContent = '';
     gameMessage.textContent = "Game on!"
     updateDisplay();
 })
