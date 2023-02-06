@@ -27,7 +27,25 @@
 }
 
 #buttons button {
-    height: 25px;
+    height: 50px;
+    width: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid blue;
+    box-shadow: inset 0px 0px 2px 2px darkblue;
+    border-radius: 100%;
+}
+
+#rockButton {
+    background: url('./blur_circular_FILL0_wght400_GRAD0_opsz48.svg');
+}
+
+#paperButton {
+    background: url('./description_FILL0_wght400_GRAD0_opsz48.svg');
+}
+
+#scissorsButton {
+    background: url('./cut_FILL0_wght400_GRAD0_opsz48.svg');
 }
 
 #computer-move {
@@ -36,7 +54,7 @@
 
 #computer-display {
     border: 1px solid purple;
-    height: 75px;
+    height: 150px;
 }
 
 #player-score {
