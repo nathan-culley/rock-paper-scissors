@@ -2,6 +2,8 @@
 let playerScore = 0;
 let computerScore = 0;
 
+const compMoveDisp = document.getElementById('computer-display');
+
 const playerScoreDisplay = document.getElementById('player-score');
 const computerScoreDisplay = document.getElementById('computer-score');
 const gameMessage = document.getElementById('game-message');
@@ -29,6 +31,7 @@ rockButton.addEventListener('click', function(event) {
     }
     let playerMove = 'rock';
     let computerMove = computerPlay();
+    compMoveDisp.textContent = computerMove;
     console.log(playerMove, computerMove);
     playRound(playerMove, computerMove);
     // if (compare("rock", computerPlay()) == 'playerWin') {
@@ -50,6 +53,7 @@ paperButton.addEventListener('click', function(event) {
     }
     let playerMove = 'paper';
     let computerMove = computerPlay();
+    compMoveDisp.textContent = computerMove;
     console.log(playerMove, computerMove);
     playRound(playerMove, computerMove);
     // if (compare("paper", computerPlay()) == 'playerWin') {
@@ -71,6 +75,7 @@ scissorsButton.addEventListener('click', function(event) {
     }
     let playerMove = 'scissors';
     let computerMove = computerPlay();
+    compMoveDisp.textContent = computerMove;
     console.log(playerMove, computerMove);
     playRound(playerMove, computerMove);
     // if (compare("scissors", computerPlay()) == 'playerWin') {
