@@ -24,6 +24,9 @@ resetButton.addEventListener('click', function(event) {
 })
 
 rockButton.addEventListener('click', function(event) {
+    if (checkVictory(playerScore, computerScore) != false) {
+        return;
+    }
     let playerMove = 'rock';
     let computerMove = computerPlay();
     console.log(playerMove, computerMove);
@@ -42,6 +45,9 @@ rockButton.addEventListener('click', function(event) {
     // }
 });
 paperButton.addEventListener('click', function(event) {
+    if (checkVictory(playerScore, computerScore) != false) {
+        return;
+    }
     let playerMove = 'paper';
     let computerMove = computerPlay();
     console.log(playerMove, computerMove);
@@ -60,6 +66,9 @@ paperButton.addEventListener('click', function(event) {
     // }
 });
 scissorsButton.addEventListener('click', function(event) {
+    if (checkVictory(playerScore, computerScore) != false) {
+        return;
+    }
     let playerMove = 'scissors';
     let computerMove = computerPlay();
     console.log(playerMove, computerMove);
