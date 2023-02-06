@@ -2,7 +2,7 @@
 let playerScore = 0;
 let computerScore = 0;
 
-const compMoveDisp = document.getElementById('computer-display');
+const compMoveDisp = document.getElementById('comp-move');
 
 const playerScoreDisplay = document.getElementById('player-score');
 const computerScoreDisplay = document.getElementById('computer-score');
@@ -30,9 +30,10 @@ rockButton.addEventListener('click', function(event) {
     if (checkVictory(playerScore, computerScore) != false) {
         return;
     }
+    compMoveDisp.classList.remove("rock", "paper", "scissors");
     let playerMove = 'rock';
     let computerMove = computerPlay();
-    compMoveDisp.textContent = computerMove;
+    compMoveDisp.classList.add(computerMove);
     console.log(playerMove, computerMove);
     playRound(playerMove, computerMove);
     // if (compare("rock", computerPlay()) == 'playerWin') {
@@ -52,9 +53,10 @@ paperButton.addEventListener('click', function(event) {
     if (checkVictory(playerScore, computerScore) != false) {
         return;
     }
+    compMoveDisp.classList.remove("rock", "paper", "scissors");
     let playerMove = 'paper';
     let computerMove = computerPlay();
-    compMoveDisp.textContent = computerMove;
+    compMoveDisp.classList.add(computerMove);
     console.log(playerMove, computerMove);
     playRound(playerMove, computerMove);
     // if (compare("paper", computerPlay()) == 'playerWin') {
@@ -74,9 +76,10 @@ scissorsButton.addEventListener('click', function(event) {
     if (checkVictory(playerScore, computerScore) != false) {
         return;
     }
+    compMoveDisp.classList.remove("rock", "paper", "scissors");
     let playerMove = 'scissors';
     let computerMove = computerPlay();
-    compMoveDisp.textContent = computerMove;
+    compMoveDisp.classList.add(computerMove);
     console.log(playerMove, computerMove);
     playRound(playerMove, computerMove);
     // if (compare("scissors", computerPlay()) == 'playerWin') {

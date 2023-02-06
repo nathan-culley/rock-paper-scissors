@@ -48,6 +48,12 @@
     background: url('./cut_FILL0_wght400_GRAD0_opsz48.svg');
 }
 
+#player-score {
+    border: 1px solid blue;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 #computer-move {
     border: 1px solid red;
 }
@@ -55,12 +61,35 @@
 #computer-display {
     border: 1px solid purple;
     height: 150px;
+    position: relative;
 }
 
-#player-score {
-    border: 1px solid blue;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+#comp-move {
+    height: 50px;
+    width: 50px;
+    border: 1px solid purple;
+    border-radius: 100%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    justify-content: center;
+    align-items: center;
+    background-size: 100% 100%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);  
+}
+
+#comp-move.rock {
+    background: url('./blur_circular_FILL0_wght400_GRAD0_opsz48.svg');
+}
+
+#comp-move.paper {
+    background: url('./description_FILL0_wght400_GRAD0_opsz48.svg');
+}
+
+#comp-move.scissors {
+    background: url('./cut_FILL0_wght400_GRAD0_opsz48.svg');
 }
 
 #computer-score {
