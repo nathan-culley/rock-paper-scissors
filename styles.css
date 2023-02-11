@@ -97,3 +97,18 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
+#game-status {
+    display: flex;
+    flex-direction: column;
+}
+
+#game-message {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#resetButton {
+    margin-left: auto;
+    margin-right: auto;
+}
