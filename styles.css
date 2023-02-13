@@ -30,7 +30,9 @@
     border: 1px solid blue;
 }
 
-
+.name {
+    text-align: center;
+}
 
 #buttons {
     border: 1px solid purple;
