@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'Oswald';
+    src: url('./Oswald-VariableFont_wght.ttf');
+}
+
+
+* {
+    font-family: 'Oswald';
+}
+
 #game-area {
     width: 300px;
     border: 1px solid black;
@@ -19,6 +29,8 @@
 #player-move {
     border: 1px solid blue;
 }
+
+
 
 #buttons {
     border: 1px solid purple;
